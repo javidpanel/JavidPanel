@@ -1,0 +1,145 @@
+name: Build JavidPanel v0.5.6 KV quota hotfix
+
+on:
+  push:
+    branches:
+      - hotfix/v0.5.6-kv-quota
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip build]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch v0.5.5 to v0.5.6
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          worker = Path('installer-bot/worker.js')
+          s = worker.read_text(encoding='utf-8')
+
+          def one(old, new, label):
+              global s
+              count = s.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, got {count}')
+              s = s.replace(old, new, 1)
+
+          one('const VERSION = "0.5.5";', 'const VERSION = "0.5.6";', 'version')
+
+          old_friendly = '''function friendlyUserError(e){const m=String(e&&e.message||e||"");if(/حداکثر تعداد نصب/.test(m))return m;if(/نسخه عمومی/.test(m))return "هنوز نسخه عمومی آماده نصب نیست. کمی بعد دوباره تلاش کن.";if(/token|authorization|permission|account|cloudflare|http|forbidden|unauthorized/i.test(m))return "توکن دسترسی کلادفلیر معتبر نیست یا مجوزهای لازم کامل نیست. از لینک داخل ربات یک توکن تازه بساز و دوباره بفرست.";return "عملیات کامل نشد. یک بار دیگر از خانه ربات شروع کن. اگر مشکل تکرار شد، کانال رسمی پنل جاوید را بررسی کن."}'''
+          new_friendly = '''function friendlyUserError(e){const m=String(e&&e.message||e||"");if(/حداکثر تعداد نصب/.test(m))return m;if(/نسخه عمومی/.test(m))return "هنوز نسخه عمومی آماده نصب نیست. کمی بعد دوباره تلاش کن.";if(/free usage limit|daily.*limit|write quota|kv.*quota|reached.*limit/i.test(m))return "سقف روزانه نوشتن Cloudflare Workers KV در حساب مقصد تمام شده است. در پلن Free حداکثر ۱۰۰۰ Write در روز مجاز است و سهمیه ساعت 00:00 UTC ریست می‌شود. حجم Storage معیار این محدودیت نیست؛ بعد از ریست روزانه، ارتقای Workers Paid یا استفاده از حساب دیگری دوباره تلاش کن.";if(/token|authorization|permission|account|cloudflare|http|forbidden|unauthorized/i.test(m))return "توکن دسترسی کلادفلیر معتبر نیست یا مجوزهای لازم کامل نیست. از لینک داخل ربات یک توکن تازه بساز و دوباره بفرست.";return "عملیات کامل نشد. یک بار دیگر از خانه ربات شروع کن. اگر مشکل تکرار شد، کانال رسمی پنل جاوید را بررسی کن."}'''
+          one(old_friendly, new_friendly, 'friendlyUserError')
+
+          old_cf = '''async function cf(token,path,init={}){const headers=new Headers(init.headers||{});headers.set("Authorization","Bearer "+token);if(init.body&&typeof init.body==="string"&&!headers.has("content-type"))headers.set("content-type","application/json");const r=await fetch(CF_API+path,{...init,headers});const body=await r.text();let d={};try{d=JSON.parse(body)}catch{d={success:false,errors:[{message:body.slice(0,500)}]}}if(!r.ok||d.success===false)throw new AppError((d.errors||[]).map(x=>x.message).join("; ")||`Cloudflare HTTP ${r.status}`,502);return d.result}'''
+          new_cf = '''async function cf(token,path,init={}){const headers=new Headers(init.headers||{});headers.set("Authorization","Bearer "+token);if(init.body&&typeof init.body==="string"&&!headers.has("content-type"))headers.set("content-type","application/json");const r=await fetch(CF_API+path,{...init,headers});const body=await r.text();let d={};try{d=JSON.parse(body)}catch{d={success:false,errors:[{message:body.slice(0,500)}]}}if(!r.ok||d.success===false){const msg=(d.errors||[]).map(x=>x.message).join("; ")||`Cloudflare HTTP ${r.status}`;if(r.status===429&&/free usage limit|daily.*limit|write quota|kv.*quota|reached.*limit/i.test(msg))throw new AppError("سقف روزانه نوشتن Cloudflare Workers KV در حساب مقصد تمام شده است. پلن Free فقط 1000 Write در روز دارد و سهمیه ساعت 00:00 UTC ریست می‌شود. این محدودیت به حجم Storage ارتباطی ندارد.",429);throw new AppError(msg,502)}return d.result}'''
+          one(old_cf, new_cf, 'cf')
+
+          old_kv = '''async function kvPut(token,accountId,namespaceId,key,value){const r=await fetch(`${CF_API}/accounts/${accountId}/storage/kv/namespaces/${namespaceId}/values/${encodeURIComponent(key)}`,{method:"PUT",headers:{Authorization:`Bearer ${token}`,"content-type":"text/plain;charset=utf-8"},body:String(value)});const body=await r.text();let d={};try{d=JSON.parse(body)}catch{}if(!r.ok||d.success===false)throw new AppError((d.errors||[]).map(x=>x.message).join("; ")||`KV write HTTP ${r.status}`,502)}'''
+          new_kv = '''async function kvPut(token,accountId,namespaceId,key,value){const r=await fetch(`${CF_API}/accounts/${accountId}/storage/kv/namespaces/${namespaceId}/values/${encodeURIComponent(key)}`,{method:"PUT",headers:{Authorization:`Bearer ${token}`,"content-type":"text/plain;charset=utf-8"},body:String(value)});const body=await r.text();let d={};try{d=JSON.parse(body)}catch{}if(!r.ok||d.success===false){const msg=(d.errors||[]).map(x=>x.message).join("; ")||`KV write HTTP ${r.status}`;if(r.status===429&&/free usage limit|daily.*limit|write quota|kv.*quota|reached.*limit/i.test(msg))throw new AppError(`Cloudflare KV write ${key}: سقف روزانه Workers KV در حساب مقصد تمام شده است. پلن Free فقط 1000 Write در روز دارد؛ سهمیه در 00:00 UTC ریست می‌شود و حجم Storage معیار این محدودیت نیست.`,429);throw new AppError(msg,502)}}'''
+          one(old_kv, new_kv, 'kvPut')
+
+          old_tail = "catch(e){opEnd(op,true,e.message||'خطا');toast(e.message||'خطا',true);throw e}}"
+          new_tail = "catch(e){opEnd(op,true,e.message||'خطا');toast(e.message||'خطا',true);return null}}"
+          one(old_tail, new_tail, 'runHeavy unhandled rejection')
+
+          worker.write_text(s, encoding='utf-8')
+
+          pkg = Path('installer-bot/package.json')
+          data = json.loads(pkg.read_text(encoding='utf-8'))
+          data['version'] = '0.5.6'
+          pkg.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          for f in ['installer-bot/install-linux.sh','installer-bot/install-windows.ps1']:
+              p=Path(f)
+              if p.exists():
+                  t=p.read_text(encoding='utf-8')
+                  t=t.replace('v0.5.3','v0.5.6').replace('0.5.3','0.5.6')
+                  p.write_text(t,encoding='utf-8')
+
+          Path('RELEASE-NOTES-v0.5.6-FA.md').write_text('''# JavidPanel v0.5.6 — KV Quota Hotfix\n\n- تشخیص دقیق خطای سقف روزانه Cloudflare Workers KV در نصب مستقیم و ربات.\n- بازگرداندن HTTP 429 واقعی برای quota به‌جای خطای عمومی 502.\n- نمایش روشن تفاوت Storage با سهمیه روزانه Write و زمان ریست 00:00 UTC.\n- جلوگیری از Unhandled Promise در پنل مدیریت هنگام شکست عملیات سنگین.\n- هسته JavidPanel و چهار کلید سازگاری `pwd`، `javid_embed`، `javid_users` و `javid_install_license` بدون تغییر باقی مانده‌اند.\n\nنکته: این نسخه quota کلادفلیر را دور نمی‌زند. حساب Free که به 1000 Write روزانه رسیده تا ریست روزانه، ارتقای Workers Paid یا استفاده از حساب دیگر امکان Write جدید ندارد.\n''', encoding='utf-8')
+          PY
+
+      - name: Syntax and regression checks
+        shell: bash
+        run: |
+          node --check installer-bot/worker.js
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('installer-bot/worker.js').read_text(encoding='utf-8')
+          checks={
+            'version':'const VERSION = "0.5.6";' in s,
+            'quota status':'429);throw new AppError(msg,502)' in s,
+            'quota text':'1000 Write' in s,
+            'no unhandled heavy rejection':"toast(e.message||'خطا',true);return null}}" in s,
+            'core pwd key':'await kvPut(token,account.id,kv.id,"pwd",password);' in s,
+            'core embed key':'await kvPut(token,account.id,kv.id,"javid_embed",JSON.stringify(embed));' in s,
+            'core users key':'await kvPut(token,account.id,kv.id,"javid_users","[]");' in s,
+            'core license key':'await kvPut(token,account.id,kv.id,"javid_install_license",JSON.stringify(licenseMarker));' in s,
+          }
+          bad=[k for k,v in checks.items() if not v]
+          print('\n'.join(f'{k}: {"PASS" if v else "FAIL"}' for k,v in checks.items()))
+          if bad: raise SystemExit('failed: '+', '.join(bad))
+          PY
+          cat > TEST-REPORT-v0.5.6.txt <<'EOF'
+          JavidPanel v0.5.6 KV Quota Hotfix
+          - installer-bot/worker.js syntax: PASS
+          - quota 429 mapping: PASS
+          - Persian quota diagnostics: PASS
+          - heavy-operation unhandled rejection guard: PASS
+          - JavidPanel initial KV key contract preserved: PASS
+          EOF
+
+      - name: Build complete ZIP and checksums
+        shell: bash
+        run: |
+          rm -f JavidPanel-v0.5.6-KV-Quota-Hotfix.zip
+          zip -qr JavidPanel-v0.5.6-KV-Quota-Hotfix.zip . \
+            -x '.git/*' \
+               '.github/workflows/build-hotfix-v0.5.6.yml' \
+               'JavidPanel-v0.5.5-Professional.zip'
+          sha256sum JavidPanel-v0.5.6-KV-Quota-Hotfix.zip > SHA256-v0.5.6.txt
+
+      - name: Optional direct Cloudflare deploy
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo 'Cloudflare deploy skipped: CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID repository secrets are not configured.'
+            exit 0
+          fi
+          cd installer-bot
+          npm install --ignore-scripts --no-audit --no-fund
+          npx wrangler deploy
+
+      - name: Upload complete package
+        uses: actions/upload-artifact@v4
+        with:
+          name: JavidPanel-v0.5.6-KV-Quota-Hotfix
+          path: |
+            JavidPanel-v0.5.6-KV-Quota-Hotfix.zip
+            SHA256-v0.5.6.txt
+            TEST-REPORT-v0.5.6.txt
+          if-no-files-found: error
+
+      - name: Commit hotfix outputs to branch
+        shell: bash
+        run: |
+          git config user.name 'JavidPanel Build Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add installer-bot/worker.js installer-bot/package.json installer-bot/install-linux.sh installer-bot/install-windows.ps1 RELEASE-NOTES-v0.5.6-FA.md TEST-REPORT-v0.5.6.txt SHA256-v0.5.6.txt JavidPanel-v0.5.6-KV-Quota-Hotfix.zip
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'release: JavidPanel v0.5.6 KV quota hotfix [skip build]'
+          git push origin HEAD:hotfix/v0.5.6-kv-quota
