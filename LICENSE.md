@@ -1,37 +1,31 @@
-# JavidPanel Proprietary Source-Available License v1.0
+# JavidPanel Personal & Family Use License v1.1
 
 Copyright © 2026 JavidPanel. All rights reserved.
 
-The JavidPanel software, including its Worker distribution, user interface, installer, documentation, branding, release artifacts, and related source or source-available materials (collectively, the “Software”), is proprietary.
+JavidPanel is provided free of charge for personal and family use through official JavidPanel distribution channels.
 
-## Permission granted
-You may use an official JavidPanel release solely when the installation was provisioned through an authorized JavidPanel installation channel. Each authorized installation grants a non-transferable, non-exclusive right to run that installation for its intended operational use.
+## Permission
+
+You may use an official, unmodified JavidPanel installation for your own personal use and for members of your family. No fee may be charged for the panel itself or for access to a copy of the panel.
 
 ## Restrictions
-Unless JavidPanel grants prior written permission, you may not:
 
-1. copy, republish, mirror, sublicense, sell, rent, redistribute, or commercially exploit the Software or substantial portions of it;
-2. modify, patch, create derivative works from, or distribute altered builds of the Software;
-3. remove, alter, obscure, or replace JavidPanel names, version metadata, copyright notices, attribution, license notices, installation markers, or integrity controls;
-4. reverse engineer, deobfuscate, decompile, disassemble, or otherwise attempt to derive protected implementation details from an obfuscated release, except to the limited extent that such restriction is prohibited by mandatory law;
-5. bypass or defeat an official installer, installation marker, update control, authorization check, integrity mechanism, or distribution restriction;
-6. use the JavidPanel name, logo, trade dress, or repository identity to distribute an unofficial build;
-7. use this repository or any released artifact as the basis for a competing panel, reseller distribution, hosted clone, or white-label product without written authorization.
+Without prior written permission from JavidPanel, you may not:
 
-## GitHub repository
-Availability of code or artifacts in a public GitHub repository does not place the Software in the public domain and does not grant an open-source license. No rights are granted by implication.
+1. sell, rent, sublicense, redistribute, mirror or commercially exploit JavidPanel or access to it;
+2. offer JavidPanel as a paid service, reseller product, hosted commercial panel or white-label product;
+3. modify and redistribute the Software under another name or brand;
+4. remove or alter the JavidPanel name, copyright notice, free-use notice or official project links;
+5. reverse engineer, deobfuscate, decompile or disassemble protected release artifacts except where such a restriction is prohibited by mandatory law;
+6. bypass official installation, integrity or authorization controls;
+7. use JavidPanel branding to distribute an unofficial version.
 
 ## Third-party components
+
 Third-party components remain subject to their respective licenses. This license applies only to JavidPanel-owned material and does not override rights granted by third-party licensors.
 
-## Security research
-Good-faith vulnerability reports are welcome through the official repository security channel. This does not authorize public redistribution, credential access, service disruption, user-data access, or exploitation outside a controlled test environment.
-
 ## Disclaimer
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR CONTINUOUS AVAILABILITY. TO THE MAXIMUM EXTENT PERMITTED BY LAW, JavidPanel SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR BUSINESS-INTERRUPTION DAMAGES ARISING FROM USE OR INABILITY TO USE THE SOFTWARE.
 
-## Termination
-Any license granted under this document terminates automatically upon violation of these terms. Upon termination, use and distribution of the affected JavidPanel material must cease unless JavidPanel provides written reinstatement.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY LAW, JavidPanel SHALL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR BUSINESS-INTERRUPTION DAMAGES ARISING FROM USE OR INABILITY TO USE THE SOFTWARE.
 
-## No trademark license
-No right to use JavidPanel trademarks, logos, names, repository identity, or branding is granted except as displayed by an unmodified official release for normal product use.
+Use of JavidPanel means acceptance of these terms.
