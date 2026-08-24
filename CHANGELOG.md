@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.3 — 2026-08-24
+
+- Fixed Installer Admin login UI JavaScript generation.
+- Added Installer favicon response.
+- Standardized Telegram end-user naming as «پنل جاوید».
+- Preserved existing Installer KV/session compatibility.
+
 ## 0.5.2 — 2026-08-24
 
 - Fixed Cloudflare Workers PBKDF2 compatibility by limiting setup iterations to 100,000.
