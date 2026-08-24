@@ -1,0 +1,13 @@
+# Private / owner-only material
+worker.js
+build-private/
+release-seed/
+manual-obfuscation/
+installer-bot/
+*.env
+.dev.vars
+*.token
+*.key
+
+# Production artifact is committed only after explicit release approval
+# dist/JavidPanel.worker.js
