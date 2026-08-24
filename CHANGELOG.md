@@ -1,26 +1,19 @@
-# Changelog
+# تغییرات
+
+## 0.5.4 — 2026-08-24
+
+- راهنمای ربات به‌طور کامل فارسی و مرحله‌ای شد.
+- راهنمای ساخت حساب کلادفلیر و توضیح ساده ورکر اضافه شد.
+- دکمه بازگشت به خانه به پیام‌های ربات اضافه شد.
+- متن رایگان و غیرقابل فروش بودن پنل به خروجی اشتراک اضافه شد.
+- مستندات عمومی گیت‌هاب فقط روی راهنمای کاربران متمرکز شد.
 
 ## 0.5.3 — 2026-08-24
 
-- Fixed Installer Admin login UI JavaScript generation.
-- Added Installer favicon response.
-- Standardized Telegram end-user naming as «پنل جاوید».
-- Preserved existing Installer KV/session compatibility.
+- مشکل اجرای صفحه ورود نصاب برطرف شد.
+- نمایش آیکون صفحات نصاب اصلاح شد.
 
 ## 0.5.2 — 2026-08-24
 
-- Fixed Cloudflare Workers PBKDF2 compatibility by limiting setup iterations to 100,000.
-- Added optional forced membership for multiple Telegram channels/groups.
-- Added official bot `@javidpanelbot` and channel `@javidpnl` links.
-- Standardized the Owner release process around one complete Worker file for manual obfuscation.
-- Refined public repository documentation and project presentation.
-
-## 0.5.0 — 2026-08-24
-
-- Removed Obfuscator.io REST/API integration from Installer.
-- Release creation accepts one manually-obfuscated Worker file.
-- New releases start as Beta/Admin-only.
-- Added direct Cloudflare-token Beta install/test path in Installer Admin.
-- Added explicit Public promotion and separate administrator-approved update notification.
-- Added Telegram My Panels actions: update, reinstall, clean reinstall and delete.
-- Reworked first-run Admin authentication around `/setup`, PBKDF2-SHA256 and a single `MASTER_KEY` Worker Secret.
+- سازگاری رمز مدیریت با محدودیت محیط کلادفلیر اصلاح شد.
+- امکان عضویت اجباری در چند کانال یا گروه اضافه شد.
