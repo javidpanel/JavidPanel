@@ -1,0 +1,6 @@
+JavidPanel v0.5.6 KV Quota Hotfix
+- installer-bot/worker.js syntax: PASS
+- quota 429 mapping: PASS
+- Persian quota diagnostics: PASS
+- heavy-operation unhandled rejection guard: PASS
+- JavidPanel initial KV key contract preserved: PASS

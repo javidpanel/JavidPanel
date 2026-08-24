@@ -2,7 +2,7 @@
 set -euo pipefail
 command -v node >/dev/null || { echo "Node.js 20+ is required"; exit 1; }
 command -v npm >/dev/null || { echo "npm is required"; exit 1; }
-echo "== JavidPanel Installer v0.5.3 =="
+echo "== JavidPanel Installer v0.5.6 =="
 npm install
 npx wrangler login
 npx wrangler deploy

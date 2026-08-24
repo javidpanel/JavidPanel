@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-Write-Host "== JavidPanel Installer v0.5.3 =="
+Write-Host "== JavidPanel Installer v0.5.6 =="
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) { throw "Node.js 20+ is required" }
 if (-not (Get-Command npm -ErrorAction SilentlyContinue)) { throw "npm is required" }
 npm install
