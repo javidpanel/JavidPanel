@@ -1,0 +1,14 @@
+{
+  "name": "javidpanel-installer-worker",
+  "version": "0.5.5",
+  "private": true,
+  "description": "Official JavidPanel Telegram installer, beta lab and release control center",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.45.0"
+  },
+  "type": "module"
+}

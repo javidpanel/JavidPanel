@@ -1,0 +1,19 @@
+JavidPanel Installer v0.5.2 — Test Report
+
+PASS  JavaScript syntax: installer worker
+PASS  JavaScript syntax: JavidPanel owner worker
+PASS  Setup POST with MASTER_KEY and no Telegram token
+PASS  PBKDF2-SHA256 administrator password derivation
+PASS  PBKDF2 iteration count = 100000
+PASS  PBKDF2 metadata persisted with admin auth record
+PASS  Administrator login and signed session cookie
+PASS  Authenticated dashboard endpoint
+PASS  One-file complete Worker Beta staging
+PASS  Staged artifact stored byte-for-byte without Core/Wrapper assembly
+PASS  Embedded Core/Wrapper release assembly removed from Installer
+PASS  Beta/Public release lifecycle retained
+
+Not executed in this environment:
+- live Cloudflare deployment with a real account/token
+- live Telegram webhook delivery
+- manual Obfuscator.io processing (owner-operated by design)

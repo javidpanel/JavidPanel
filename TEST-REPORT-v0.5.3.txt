@@ -1,0 +1,12 @@
+JavidPanel v0.5.3 / Installer v0.5.3 — Verification
+
+Panel worker syntax: PASS
+Installer worker syntax: PASS
+Installer generated Admin client syntax: PASS
+PBKDF2 iterations: 100000 PASS
+Admin setup/login/session/dashboard integration: PASS
+Wrong password returns 401: PASS
+Favicon endpoint: PASS
+Single-file Beta staging: PASS
+Telegram public branding migration to «پنل جاوید»: PASS
+Panel Core first two physical lines: byte-for-byte preserved from v0.5.2 PASS

@@ -1,0 +1,29 @@
+JavidPanel v0.5.0 Test Report
+Date: 2026-08-24
+
+PASS  Installer Worker JavaScript syntax (node --check)
+PASS  JavidPanel Worker JavaScript syntax (node --check)
+PASS  JavidPanel Core physical line 1 byte-identical to v0.4.0
+PASS  JavidPanel Core physical line 2 byte-identical to v0.4.0
+PASS  Installer contains no Obfuscator.io REST/API integration
+PASS  /setup/status returns HTTP 200 before setup
+PASS  /admin/session returns HTTP 200 before authentication
+PASS  first-run /setup creates PBKDF2-SHA256 admin credentials
+PASS  authenticated /admin/api/dashboard returns HTTP 200
+PASS  unauthenticated /admin/api/dashboard remains protected with HTTP 401
+PASS  missing MASTER_KEY returns explicit HTTP 503 infrastructure error
+PASS  one-file manually-obfuscated wrapper staging
+PASS  automatic preserved-Core assembly and SHA-256 validation
+PASS  staged release defaults to Beta/Admin-only
+PASS  explicit Beta -> Public promotion
+PASS  direct Cloudflare token verify/install flow with mocked Cloudflare API
+PASS  direct Beta update flow with mocked Cloudflare API
+PASS  admin API redacts stored Cloudflare token and panel password on inventory/update responses
+PASS  Telegram release notification is explicit admin action and targets old-version users
+PASS  Telegram My Panels lifecycle routes: update/reinstall/clean reinstall/delete
+PASS  public staging excludes readable private wrapper, Owner build factory and Installer source
+
+NOT RUN  Live Cloudflare deployment against user's account
+NOT RUN  Live Telegram Bot/Webhook round-trip
+NOT RUN  Manual Obfuscator.io Dashboard processing (must be performed by owner)
+NOT RUN  Live production JavidPanel release deployment before owner supplies obfuscated wrapper

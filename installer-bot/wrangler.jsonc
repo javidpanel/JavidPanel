@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "javidpanel-installer",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-24",
+  "kv_namespaces": [
+    { "binding": "BOT_KV" }
+  ],
+  "triggers": { "crons": ["*/5 * * * *"] }
+}

@@ -1,0 +1,27 @@
+JavidPanel v0.4.0 test report
+Date: 2026-08-24
+
+PASS  JavidPanel worker.js Node syntax check
+PASS  Installer Bot worker.js Node syntax check
+PASS  Installer Admin generated HTML render
+PASS  Installer Admin inline JavaScript syntax check
+PASS  Core byte-identical to v0.3.0 preserved core
+PASS  Core + readable wrapper recombines exactly to OWNER worker.js
+PASS  Release Stage flow with multipart Core + Wrapper
+PASS  Final release SHA-256 generation
+PASS  Release Activate flow and integrity re-check
+PASS  AES-GCM encrypted secret round-trip
+PASS  Telegram Bot Token / setWebhook flow with mocked Telegram API
+PASS  GitHub publication flow with mocked GitHub Contents/Release API
+PASS  Wrangler/package JSON validation
+PASS  Linux installer shell syntax
+PASS  Public repository leak guard: no root worker.js
+PASS  Public repository leak guard: no build-private directory
+PASS  Public repository leak guard: no release-seed directory
+
+NOT RUN  Live Cloudflare deploy: requires an authenticated external Cloudflare account
+NOT RUN  Live Telegram setWebhook: requires a real Bot Token
+NOT RUN  Live Obfuscator.io API VM build: requires user's Pro/Team/Business API token
+NOT RUN  Live GitHub push: GitHub connector is not exposed in this session; container network cannot resolve github.com
+
+GitHub local public commit will be recorded separately.

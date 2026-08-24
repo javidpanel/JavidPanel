@@ -1,0 +1,8 @@
+JavidPanel v0.5.4
+Worker module syntax: PASS
+Core physical line 1 integrity: PASS
+Core physical line 2 integrity: PASS
+Raw subscription info node: PASS
+Free/non-sale notice node: PASS
+127.0.0.1 informational nodes: PASS
+JSON proxy/outbound info nodes: PASS

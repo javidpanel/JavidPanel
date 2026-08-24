@@ -1,0 +1,6 @@
+JavidPanel v0.5.2
+PASS - JavidPanel worker syntax
+PASS - Owner manual-obfuscation worker syntax
+PASS - Installer v0.5.2 syntax
+PASS - single full-worker manual obfuscation workflow
+PASS - installer forced membership feature static validation

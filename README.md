@@ -1,54 +1,47 @@
-<p align="center"><img src="docs/assets/header.svg" alt="JavidPanel" width="100%"></p>
+<p align="center">
+  <img src="docs/assets/header.svg" alt="JavidPanel" width="100%">
+</p>
 
 # JavidPanel
 
-**JavidPanel** is a free Cloudflare-based panel intended for personal and family use. The official Telegram bot installs the panel into your own Cloudflare account and provides the panel address and administrator password.
-
-> JavidPanel is not a commercial product. Selling the panel, selling access to it, or redistributing a rebranded paid version is not permitted.
+JavidPanel is a free panel intended for personal and family use. Official installation is provided through the Telegram bot. It is not offered for resale, paid panel distribution, or white-label commercial use.
 
 ## Official links
 
-- Installer and update bot: [javidpanelbot](https://t.me/javidpanelbot)
-- Project channel: [javidpnl](https://t.me/javidpnl)
-- Repository: [JavidPanel/JavidPanel](https://github.com/JavidPanel/JavidPanel)
-- Persian user guide: [README-FA.md](README-FA.md)
+| Resource | Address |
+|---|---|
+| Installation bot | [@javidpanelbot](https://t.me/javidpanelbot) |
+| Telegram channel | [@javidpnl](https://t.me/javidpnl) |
+| Repository | [JavidPanel/JavidPanel](https://github.com/JavidPanel/JavidPanel) |
 
-## What is a Cloudflare Worker?
+## How it works
 
-A Worker is a small program that runs on Cloudflare's network. JavidPanel runs as a Worker, so a normal personal installation does not require a separate VPS or a Linux server.
+JavidPanel runs on a Cloudflare Worker. A Worker is a small application executed on Cloudflare's network, so a separate personal server is not required for a normal installation. Panel data is stored in storage attached to the same Cloudflare account.
 
-The installer creates the required resources in your own Cloudflare account. You remain responsible for your Cloudflare account, panel credentials, users, and subscription links.
+## Before installation
+
+You need a Cloudflare account. If you do not have one, create an account, verify your email address, and then open the official installation bot.
+
+[Create a Cloudflare account](https://dash.cloudflare.com/sign-up)
 
 ## Installation
 
-The normal installation path is the official Telegram bot. You need:
-
-1. a Cloudflare account with a verified email address;
-2. a scoped Cloudflare access token created from the link provided by the bot;
-3. the official installer bot.
-
-See the [Persian installation guide](INSTALL-FA.md) for the complete step-by-step process.
+1. Open [@javidpanelbot](https://t.me/javidpanelbot).
+2. Choose the new-panel installation option.
+3. Use the prepared button in the bot to create the required Cloudflare access token.
+4. Copy the generated token and send it to the bot.
+5. Select the Cloudflare account if more than one is available.
+6. The bot completes the installation and returns the panel address and administrator password.
+7. Store the password securely.
 
 ## Using the panel
 
-After installation, sign in to the panel and open **Users**. Create a separate user for yourself or each family member. A user can have an expiration period and an optional traffic limit.
+Open the Users section to create separate users for family members or devices. You can set a name, expiry period and an optional data limit for each user, then share only that user's subscription link.
 
-Each user receives a dedicated status page with subscription information, QR codes, client links, usage information, and connection guidance.
+Use My Panels in the Telegram bot to update, reinstall, clean-install or remove your installation. A clean installation creates a new panel address and password and does not transfer data from the previous panel.
 
-## Recommended mobile client
+## Usage terms
 
-Happ is the first recommended mobile client in the JavidPanel user page.
+JavidPanel is free and intended for personal and family use. Reselling the panel, selling access to it, distributing a rebranded paid version, or removing the project's free-use notice is not permitted.
 
-- [Android — Google Play](https://play.google.com/store/apps/details?id=com.happproxy)
-- [Android — direct releases](https://github.com/Happ-proxy/happ-android/releases/latest)
-- [iPhone — App Store](https://apps.apple.com/us/app/happ-proxy-utility/id6504287215)
-
-## Updates
-
-Open the official bot and choose the panel update check. If a newer public version is available, an update action appears next to your installed panel.
-
-[Check for updates in the official bot](https://t.me/javidpanelbot?start=update)
-
-## Safety
-
-Keep Cloudflare tokens, panel administrator passwords, and subscription links private. Use only the official bot and repository links listed above.
+Follow [@javidpnl](https://t.me/javidpnl) for project updates.

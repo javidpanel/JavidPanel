@@ -1,0 +1,12 @@
+.env
+.env.*
+.dev.vars
+.wrangler/
+node_modules/
+*.log
+*.tmp
+*.bak
+.DS_Store
+# Never commit local secrets or unobfuscated production build inputs.
+private/
+build-private/
