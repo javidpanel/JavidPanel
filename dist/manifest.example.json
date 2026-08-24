@@ -1,8 +1,0 @@
-{
-  "product": "JavidPanel",
-  "version": "0.5.0",
-  "workerUrl": "https://raw.githubusercontent.com/JavidPanel/JavidPanel/main/dist/JavidPanel.worker.js",
-  "sha256": "REPLACE_WITH_SHA256_OF_OBFUSCATED_ARTIFACT",
-  "minimumInstallerVersion": "0.5.0",
-  "channel": "stable"
-}
