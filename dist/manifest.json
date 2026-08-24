@@ -1,8 +1,0 @@
-{
-  "version": "0.5.0",
-  "status": "awaiting-manual-obfuscation",
-  "channel": "none",
-  "workerUrl": null,
-  "sha256": null,
-  "note": "Production artifact is published only after manual obfuscation, Beta validation and explicit Public promotion from Installer Admin."
-}
