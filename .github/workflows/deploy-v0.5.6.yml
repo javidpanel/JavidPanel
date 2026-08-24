@@ -1,0 +1,60 @@
+name: Deploy JavidPanel v0.5.6 Installer
+
+on:
+  push:
+    branches:
+      - hotfix/v0.5.6-kv-quota
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    if: ${{ !contains(github.event.head_commit.message, '[skip deploy]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate installer
+        run: |
+          node --check installer-bot/worker.js
+          grep -q 'const VERSION = "0.5.6";' installer-bot/worker.js
+
+      - name: Deploy to Cloudflare when credentials exist
+        id: cf
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set +e
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            printf '%s\n' 'SKIPPED: repository secrets CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID are not configured.' > DEPLOY-STATUS-v0.5.6.txt
+          else
+            cd installer-bot
+            npm install --ignore-scripts --no-audit --no-fund
+            rc=$?
+            if [ $rc -eq 0 ]; then
+              npx wrangler deploy > ../wrangler-deploy-v0.5.6.log 2>&1
+              rc=$?
+            fi
+            cd ..
+            if [ $rc -eq 0 ]; then
+              printf '%s\n' 'SUCCESS: JavidPanel Installer v0.5.6 deployed with Wrangler.' > DEPLOY-STATUS-v0.5.6.txt
+            else
+              printf 'FAILED: Wrangler deploy returned exit code %s.\n' "$rc" > DEPLOY-STATUS-v0.5.6.txt
+              tail -n 40 wrangler-deploy-v0.5.6.log >> DEPLOY-STATUS-v0.5.6.txt 2>/dev/null || true
+            fi
+          fi
+          cat DEPLOY-STATUS-v0.5.6.txt
+
+      - name: Record deploy result
+        shell: bash
+        run: |
+          git config user.name 'JavidPanel Deploy Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add DEPLOY-STATUS-v0.5.6.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'deploy: record v0.5.6 status [skip deploy] [skip build]'
+          git push origin HEAD:hotfix/v0.5.6-kv-quota
