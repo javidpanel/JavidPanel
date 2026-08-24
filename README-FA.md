@@ -1,38 +1,35 @@
-# JavidPanel v0.5.0
+# JavidPanel
 
-JavidPanel یک پنل حرفه‌ای مبتنی بر Cloudflare Worker با پنل مدیریت فشرده، پنل مشترک، مدیریت چندکاربره، تاریخ شمسی و چرخه نصب/بروزرسانی کنترل‌شده است.
+**JavidPanel** یک پنل مبتنی بر Cloudflare Worker با نصب‌کننده رسمی تلگرام، مدیریت نسخه Beta/Public و چرخه بروزرسانی کنترل‌شده است.
 
-## اصل انتشار نسخه‌ها
+## لینک‌های رسمی
 
-از نسخه 0.5.0 هیچ اتصال API به Obfuscator.io وجود ندارد. فرایند ثابت انتشار این است:
+- ربات نصب: [@javidpanelbot](https://t.me/javidpanelbot)
+- کانال پروژه: [@javidpnl](https://t.me/javidpnl)
+- مخزن رسمی: [JavidPanel/JavidPanel](https://github.com/JavidPanel/JavidPanel)
 
-1. Wrapper خصوصی JavidPanel از بسته Owner برداشته می‌شود.
-2. مالک پروژه Wrapper را شخصاً در Dashboard سایت Obfuscator.io مبهم می‌کند.
-3. فقط **یک فایل خروجی مبهم‌شده** در Installer Admin بارگذاری می‌شود.
-4. Installer، Core ثابت و دست‌نخورده را از داخل خودش به فایل متصل می‌کند، SHA-256 می‌سازد و Release را در وضعیت **Beta** قرار می‌دهد.
-5. Beta فقط از بخش «تست مستقیم» پنل Installer و با Cloudflare API Token قابل نصب/آزمایش است.
-6. پس از تست و دیباگ، مدیر نسخه را به **Public** ارتقا می‌دهد.
-7. اطلاع‌رسانی آپدیت کاربران قدیمی فقط با فرمان جداگانه مدیر انجام می‌شود؛ آپدیت اجباری نیست.
+## انتشار نسخه جدید
 
-## نصب رسمی کاربر نهایی
+برای Owner فقط یک فایل وجود دارد: `worker.js` کامل پنل. همین فایل به‌صورت دستی مبهم می‌شود و فقط خروجی مبهم‌شده در پنل Installer آپلود می‌شود. نسخه جدید ابتدا Beta است، از پنل مدیریت Installer نصب و تست می‌شود و بعد با تأیید مدیر Public می‌شود.
 
-کاربر نهایی از Telegram Installer رسمی استفاده می‌کند. ربات Cloudflare API Token محدود را دریافت می‌کند و به‌صورت خودکار KV، Worker، Binding، Secure Path و رمز مدیریت قوی را می‌سازد. در «پنل‌های من» عملیات آپدیت، بازنصب، بازنصب تمیز و حذف در دسترس است.
+```text
+worker.js کامل Owner
+        ↓
+مبهم‌سازی دستی
+        ↓
+یک فایل Worker مبهم‌شده
+        ↓
+Upload در Installer Admin
+        ↓
+Beta → تست مستقیم → Public
+```
 
-## Installer Bot
+در صورت Public شدن نسخه، ارسال پیام بروزرسانی به کاربران قبلی یک عملیات مستقل و نیازمند تأیید مدیر است.
 
-بسته مستقل `JavidPanel-InstallerBot-v0.5.0` یک Cloudflare Worker مستقل است. نصب آن با اسکریپت Windows/Linux انجام می‌شود. بعد از Deploy فقط `MASTER_KEY` به‌صورت Worker Secret نیاز است؛ رمز مدیر در اولین ورود از مسیر `/setup` تعیین و به‌صورت PBKDF2-SHA256 در KV نگهداری می‌شود. Bot Token نیز از `/setup` یا Admin وارد شده و Webhook خودکار تنظیم می‌شود.
+## عضویت اجباری ربات
 
-## GitHub
+در Installer Admin می‌توان بررسی عضویت را فعال یا غیرفعال کرد و چند کانال یا گروه تعریف کرد. هنگام فعال بودن این قابلیت، کاربر قبل از استفاده از امکانات اصلی ربات باید عضو مقصدهای تعیین‌شده باشد. ربات برای بررسی وضعیت اعضا باید دسترسی مناسب در آن کانال/گروه داشته باشد.
 
-Repository رسمی: https://github.com/JavidPanel/JavidPanel
+## عملیات پنل‌های من
 
-Repository عمومی شامل مستندات و Artifactهای عمومیِ تأییدشده است. Wrapper خوانا، Core خصوصی Build Factory و سورس عملیاتی Installer در Repository عمومی قرار نمی‌گیرند.
-
-## راهنماها
-
-- `INSTALL-FA.md` — نصب Installer برای مدیر پروژه.
-- `docs/INSTALLER-BOT.md` — معماری و امکانات ربات.
-- `docs/RELEASE.md` — چرخه Beta → Public → Notify.
-- `docs/OBFUSCATION.md` — روش دستی Obfuscator.io.
-- `docs/SECURITY.md` — معماری امنیتی.
-- `LICENSE.md` — شرایط حقوقی و محدودیت توزیع.
+کاربر از داخل ربات می‌تواند پنل خود را آپدیت، بازنصب، بازنصب تمیز یا حذف کند. بازنصب تمیز Worker و KV تازه، آدرس جدید، Secure Path جدید و رمز جدید ایجاد می‌کند.

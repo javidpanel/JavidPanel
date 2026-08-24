@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">JavidPanel</title>
+  <desc id="desc">JavidPanel project header</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#12294a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="300" rx="28" fill="url(#g)"/>
+  <g transform="translate(86 78)">
+    <rect width="132" height="132" rx="30" fill="#1677ff"/>
+    <path d="M39 35h54v18H57v28c0 15 8 23 23 23h13v18H78c-26 0-39-14-39-41V35z" fill="#fff"/>
+    <circle cx="91" cy="44" r="10" fill="#70e1f5"/>
+  </g>
+  <text x="258" y="135" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="62" font-weight="700" fill="#f8fbff">JavidPanel</text>
+  <text x="260" y="184" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#a9bed8">Managed Cloudflare Worker panel and official installer</text>
+  <text x="260" y="225" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#6f8eaf">Documentation · Releases · Security · Operations</text>
+</svg>

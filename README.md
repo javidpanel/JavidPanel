@@ -1,38 +1,63 @@
-# JavidPanel
+<p align="center">
+  <img src="docs/assets/header.svg" alt="JavidPanel" width="100%">
+</p>
 
-**JavidPanel** is a managed Cloudflare Worker panel with an official Telegram installer and a controlled Beta → Public release pipeline.
+<p align="center">
+  <strong>Cloudflare Worker panel with a controlled Telegram installer and release workflow.</strong>
+</p>
 
-> Current project line: **v0.5.0**
+<p align="center">
+  <a href="README-FA.md">فارسی</a> ·
+  <a href="INSTALL-FA.md">Installation</a> ·
+  <a href="SECURITY.md">Security</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="LICENSE.md">License</a>
+</p>
 
-## Distribution model
+## Official links
 
-Production artifacts are published only after **manual wrapper obfuscation**, direct Beta validation, and explicit administrator promotion. The Installer has **no Obfuscator.io API integration** and stores no Obfuscator.io token.
+| Resource | Address |
+|---|---|
+| Installer bot | [@javidpanelbot](https://t.me/javidpanelbot) |
+| Telegram channel | [@javidpnl](https://t.me/javidpnl) |
+| Repository | [JavidPanel/JavidPanel](https://github.com/JavidPanel/JavidPanel) |
 
-## Release flow
+## Release model
 
-1. The project owner manually obfuscates the private JavidPanel wrapper in the Obfuscator.io Dashboard.
-2. Exactly **one obfuscated wrapper file** is uploaded to Installer Admin.
-3. Installer attaches the byte-preserved embedded Core and creates an **Admin-only Beta**.
-4. Beta is installed and tested directly from Installer Admin using a scoped Cloudflare API Token.
-5. The administrator explicitly promotes the release to **Public**.
-6. Existing Telegram users are notified only after a separate administrator-approved action.
+JavidPanel uses a deliberately simple release path. The owner keeps one complete readable `worker.js`, obfuscates that file manually, and uploads the single obfuscated result to Installer Admin. Every upload starts as **Beta**. Beta builds are installable only from the Installer Admin direct-test section. After validation, an administrator can promote the build to **Public** and optionally notify users with older installations.
 
-## End-user operations
+```text
+owner worker.js
+     │
+     ├─ manual obfuscation
+     ▼
+obfuscated worker.js
+     │
+     ├─ upload once in Installer Admin
+     ▼
+Beta ── test / debug ──► Public ──► optional user update notice
+```
 
-The Telegram installer provides guided installation and **My Panels** actions for update, reinstall, clean reinstall, and delete. Clean reinstall creates a new Worker/KV/address and removes the old resources after the replacement succeeds.
+## Installer capabilities
 
-## Documentation
+The official installer provisions Cloudflare Worker and KV resources, creates a secure panel path and administrator password, keeps a per-user installation inventory, and exposes update, reinstall, clean reinstall and delete actions. The admin console also provides direct Cloudflare-token installation for Beta testing.
 
-- [Persian overview](README-FA.md)
-- [Installer setup](INSTALL-FA.md)
-- [Installer architecture](docs/INSTALLER-BOT.md)
-- [Release pipeline](docs/RELEASE.md)
-- [Manual obfuscation](docs/OBFUSCATION.md)
-- [Security policy](SECURITY.md)
-- [License](LICENSE.md)
+Optional forced membership can be enabled for one or more Telegram channels/groups. Membership targets are managed from Installer Admin; when enabled, the bot checks membership before allowing normal operations.
 
-Official repository: https://github.com/JavidPanel/JavidPanel
+## Owner release workflow
 
-## Security
+1. Open `manual-obfuscation/JavidPanel-vX.Y.Z-worker.js` from the Owner package.
+2. Obfuscate the **entire file** manually using your chosen Obfuscator.io settings.
+3. Save the output as `JavidPanel-vX.Y.Z-worker.obf.js`.
+4. Upload that single file in **Installer Admin → Releases**.
+5. Install the Beta from **Direct Test** using a scoped Cloudflare API Token.
+6. Validate the panel and promote the release to Public.
+7. Notify existing users only when you explicitly choose to do so.
 
-Never publish Cloudflare API tokens, Telegram bot tokens, Installer `MASTER_KEY`, private wrapper source, or unobfuscated production builds in issues or commits.
+The public repository intentionally does not contain the readable production Worker or Installer control-plane source.
+
+## Security notes
+
+Cloudflare API tokens, Telegram bot tokens, Installer `MASTER_KEY`, private Worker source and unobfuscated builds must never be committed to the repository or posted in issues.
+
+See [SECURITY.md](SECURITY.md) for operational guidance.
