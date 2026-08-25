@@ -4,9 +4,9 @@
 
 Use the official `@javidpanelbot` Telegram bot.
 
-## Should I download the GitHub `worker.js` file to install JavidPanel?
+## Do I need to download anything from GitHub to install JavidPanel?
 
-No. The `worker.js` file in this repository is an educational sample only and is not used to install or deploy JavidPanel.
+No. Installation and updates are handled through the official bot.
 
 ## Should I keep the bot after installation?
 

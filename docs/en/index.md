@@ -7,11 +7,11 @@ Welcome to the official English documentation for **JavidPanel**.
 - [Installation](installation.md)
 - [Official Telegram bot](telegram-bot.md)
 - [Manage users from the bot](user-management.md)
+- [Mobile management app](admin-app.md)
 
 ## Daily use
 
 - [Clients and subscription links](clients.md)
-- [Educational Worker sample](sample-worker.md)
 - [FAQ](faq.md)
 
 ## Security and terms

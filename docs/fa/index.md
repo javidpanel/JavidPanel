@@ -7,11 +7,11 @@
 - [نصب جاویدپنل](installation.md)
 - [راهنمای ربات رسمی](telegram-bot.md)
 - [مدیریت کاربران از ربات](user-management.md)
+- [اپ مدیریت روی موبایل](admin-app.md)
 
 ## استفاده روزمره
 
 - [کلاینت‌ها و لینک اشتراک](clients.md)
-- [نمونه آموزشی Worker](sample-worker.md)
 - [سؤالات متداول](faq.md)
 
 ## امنیت و قوانین

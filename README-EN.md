@@ -8,7 +8,7 @@
 
 ### A lightweight panel for personal and family use on Cloudflare
 
-[![Version](https://img.shields.io/badge/version-v0.7.2-1677ff?style=flat-square)](https://github.com/JavidPanel/JavidPanel)
+[![Panel](https://img.shields.io/badge/panel-v0.8.6-1677ff?style=flat-square)](https://github.com/JavidPanel/JavidPanel)
 [![Persian](https://img.shields.io/badge/فارسی-README-00b894?style=flat-square)](README.md)
 [![English](https://img.shields.io/badge/language-English-334155?style=flat-square)](README-EN.md)
 [![Telegram](https://img.shields.io/badge/Telegram-@javidpanelbot-229ED9?style=flat-square)](https://t.me/javidpanelbot)
@@ -24,7 +24,7 @@
 **JavidPanel** is a free panel for personal and family use that runs on the user's own Cloudflare account. Installation and maintenance are handled through the official Telegram bot, making setup, updates and routine management straightforward.
 
 After installation, you can create separate users for family members or devices, manage expiration and traffic limits, and share the appropriate subscription link with each user.
-Version 0.7.2 preserves existing 0.6.x installations and links while adding Fragment settings, clean IPs, country proxy lists, and node flags to the panel.
+Version 0.8.6 preserves existing installations and links while providing user management, Fragment settings, clean IPs, country lists, and node flags.
 
 <table>
 <tr>
@@ -35,13 +35,15 @@ Version 0.7.2 preserves existing 0.6.x installations and links while adding Frag
 </tr>
 </table>
 
-## Version 0.7.2
+## Version 0.8.6
 
 - Direct upgrade for 0.6.x installations without changing password, users, storage, or existing links
 - Official country proxy lists served from this repository
 - Clean IPs, Fragment settings, and full connection controls in the panel
 - Country flags in generated node names
 - Fixes for subscription nodes that previously failed to connect
+- Installable mobile management web app
+- Live panel status, support updates and management notifications
 
 ## How it works
 
@@ -93,13 +95,11 @@ The official bot remains useful after installation. From **My Panels**, availabl
 
 Country files are available in [proxy](proxy) and are used by the panel's country selector.
 
-## Educational `worker.js` sample
+## Mobile management app
 
-[`worker.js`](worker.js) is a **documentation sample** that illustrates a simplified request flow: receive a request, resolve its route, evaluate user state and build a response.
+The management panel can be installed from a mobile browser and used as a standalone app with bottom navigation, mobile notifications and live background updates.
 
-It is intentionally **not an installable or deployable JavidPanel Worker** and contains no operational connectivity, storage, account management or service-generation implementation.
-
-**[Sample Worker explanation →](docs/en/sample-worker.md)**
+<p align="center"><img src="assets/branding/javidpanel-app-icon.png" alt="JavidPanel app icon" width="160"></p>
 
 ## Documentation
 
@@ -109,8 +109,8 @@ It is intentionally **not an installable or deployable JavidPanel Worker** and c
 | **[Installation](docs/en/installation.md)** | Account, token and bot installation |
 | **[Official bot](docs/en/telegram-bot.md)** | My Panels and maintenance operations |
 | **[Bot user management](docs/en/user-management.md)** | Create, view, extend and delete users |
+| **[Mobile management app](docs/en/admin-app.md)** | Installation, navigation and notifications |
 | **[Clients & subscriptions](docs/en/clients.md)** | Subscription links and QR usage |
-| **[Sample Worker](docs/en/sample-worker.md)** | Educational request/response flow |
 | **[FAQ](docs/en/faq.md)** | Frequently asked questions |
 | **[Security](SECURITY-EN.md)** | Token, password and subscription safety |
 
